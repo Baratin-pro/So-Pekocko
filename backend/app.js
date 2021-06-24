@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 const path = require("path");
 const app = express();
 
@@ -14,6 +15,14 @@ const app = express();
 /*
  * Connection à la BD
  */
+
+mongoose
+  .connect(process.env.MONGO_LINK, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connexion à MongoDB réussie !"))
+  .catch(() => console.log("Connexion à MongoDB échouée !"));
 
 /*
  * Cors
