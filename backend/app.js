@@ -11,9 +11,10 @@ const app = express();
  * Routes API
  */
 
+const userRoutes = require("./routes/user.js");
 
 /*
- * Connection à la BD
+ * Connexion à la BD
  */
 
 mongoose
@@ -46,6 +47,7 @@ app.use((req, res, next) => {
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use(helmet());
 app.use(bodyParser.json());
+app.use("/api/auth", userRoutes);
 /*
  * Execution
  */
