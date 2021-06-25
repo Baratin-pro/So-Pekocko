@@ -1,6 +1,6 @@
 const Joi = require("joi");
 
-const signInValidationSchema = Joi.object({
+const userInValidationSchema = Joi.object({
   email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ["com", "net", "fr"] } })
     .required()
@@ -8,4 +8,4 @@ const signInValidationSchema = Joi.object({
   password: Joi.string().required(),
 });
 
-module.exports = signInValidationSchema;
+module.exports = userInValidationSchema;
