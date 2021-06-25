@@ -12,7 +12,7 @@ const app = express();
  */
 
 const userRoutes = require("./routes/user.js");
-
+const sauceRoutes = require("./routes/sauce.js");
 /*
  * Connexion à la BD
  */
@@ -48,6 +48,7 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 app.use(helmet());
 app.use(bodyParser.json());
 app.use("/api/auth", userRoutes);
+app.use("/api/sauces", sauceRoutes);
 /*
  * Execution
  */
