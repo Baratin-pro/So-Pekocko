@@ -3,6 +3,7 @@
 const Sauce = require("../models/Sauce.js");
 const sauceSchema = require("../middleware/sauceSchema.js");
 const fs = require("fs");
+const { number } = require("joi");
 
 //--------------------------------------------------------------------
 
@@ -38,6 +39,19 @@ exports.getAllSauce = (req, res, next) => {
   Sauce.find()
     .then((sauces) => {
       res.status(200).json(sauces);
+    })
+    .catch((error) => {
+      res.status(400).json({ error });
+    });
+};
+
+//--------------------------------------------------------------------
+
+exports.getOneSauce = (req, res, next) => {
+  const sauceId = String(req.params.id);
+  Sauce.findOne({ _id: sauceId })
+    .then((sauce) => {
+      res.status(200).json(sauce);
     })
     .catch((error) => {
       res.status(400).json({ error });
