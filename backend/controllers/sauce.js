@@ -4,6 +4,8 @@ const Sauce = require("../models/Sauce.js");
 const sauceSchema = require("../middleware/sauceSchema.js");
 const fs = require("fs");
 
+//--------------------------------------------------------------------
+
 exports.createSauce = async (req, res, next) => {
   try {
     const sauceObject = JSON.parse(req.body.sauce);
@@ -28,4 +30,16 @@ exports.createSauce = async (req, res, next) => {
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
+};
+
+//--------------------------------------------------------------------
+
+exports.getAllSauce = (req, res, next) => {
+  Sauce.find()
+    .then((sauces) => {
+      res.status(200).json(sauces);
+    })
+    .catch((error) => {
+      res.status(400).json({ error });
+    });
 };
