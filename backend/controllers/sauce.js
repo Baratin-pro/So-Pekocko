@@ -103,3 +103,19 @@ exports.modifySauce = async (req, res, next) => {
     return res.status(500).json({ message: err.message });
   }
 };
+
+//--------------------------------------------------------------------
+
+exports.deleteSauce = (req, res, next) => {
+  const sauceId = String(req.params.id);
+  Sauce.findOne({ _id: sauceId })
+    .then((sauce) => {
+      const filename = sauce.imageUrl.split("/images/")[1];
+      fs.unlink(`images/${filename}`, () => {
+        Sauce.deleteOne({ _id: sauceId })
+          .then(() => res.status(200).json({ message: "Sauce supprimée !" }))
+          .catch((error) => res.status(400).json({ error }));
+      });
+    })
+    .catch((error) => res.status(500).json({ error }));
+};
